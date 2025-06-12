@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import AddToCart from './addToCart';
 
 
 
@@ -26,8 +27,8 @@ export default function Navbar() {
                         </ListItemAvatar>
                         <ListItemText primary="Guest" secondary="guest@gmail.com" />
                     </ListItem>
-
-                    <IconButton
+                    <AddToCart/>
+                    {/* <IconButton
                         size="large"
                         aria-label="show 17 new notifications"
                         color="inherit"
@@ -35,7 +36,7 @@ export default function Navbar() {
                         <Badge badgeContent={5} color="error">
                             <AddShoppingCartIcon />
                         </Badge>
-                    </IconButton>
+                    </IconButton> */}
                 </Toolbar>
             </AppBar>
 
