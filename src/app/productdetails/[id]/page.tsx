@@ -7,10 +7,6 @@ interface ProductPageParams {
     id: string;
   }
 }
-
-
-
-
 export default async function ProductDetailPage({ params }: ProductPageParams) {
   const product = await getProductById(params.id);
 

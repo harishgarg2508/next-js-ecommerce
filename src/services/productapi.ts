@@ -8,4 +8,3 @@ export default async function fetchproducts() {
         console.error("Failed to fetch products:", error);
     }
 }
-

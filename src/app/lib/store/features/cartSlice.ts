@@ -1,6 +1,5 @@
 import { createSlice,type PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../store'
-
+import { toast } from "sonner";
 interface ProductType {
     id: number;
     title: string;
@@ -25,7 +24,7 @@ export const cartSlice = createSlice({
     add: (state, action: PayloadAction<ProductType>) => {
       const existingItem = state.items.find(item => item.id === action.payload.id);
       if(existingItem){
-        alert("Item already in cart")
+        toast.error("Item already in cart")
       } else{
         state.items.push(action.payload);
       }
@@ -34,6 +33,7 @@ export const cartSlice = createSlice({
     remove: (state, action: PayloadAction<number>) => { 
       state.items = state.items.filter(item => item.id !== action.payload);
     },
+
     
     }
 })

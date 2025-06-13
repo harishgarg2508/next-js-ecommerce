@@ -13,10 +13,12 @@ import storage from 'redux-persist/lib/storage';
 
 import cartReducer, { CartState } from './features/cartSlice';
 import userReducer from './features/AuthSlice';
+import paginationReducer from './features/PaginationSlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   user: userReducer,
+  page: paginationReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -24,7 +26,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cart', 'user'],
+  whitelist: ['cart', 'user','page'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
