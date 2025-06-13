@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Link from 'next/link';
+import RemoveFromCart from './RemoveFromCart';
 
 export default function CartPage() {
   const items = useAppSelector(state => state.cart.items)
@@ -27,7 +28,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <>
-            <Link href="/"><Button variant="contained"><KeyboardBackspaceIcon /></Button></Link>
+      <Link href="/"><Button variant="contained"><KeyboardBackspaceIcon fontSize='large'/></Button></Link>
 
       
       <Container sx={{ py: 4 }}>
@@ -44,7 +45,7 @@ export default function CartPage() {
 
   return (
     <>
-      <Link href="/"><Button variant="contained"><KeyboardBackspaceIcon /></Button></Link>
+      <Link href="/"><Button variant="contained"><KeyboardBackspaceIcon fontSize='large'/></Button></Link>
 
       <Container sx={{ py: 4 }}>
 
@@ -72,8 +73,10 @@ export default function CartPage() {
                       >
                         ${item.price.toFixed(2)}
                       </Typography>
+                   
                     }
                   />
+                  <RemoveFromCart itemId={item.id} />
                 </ListItem>
                 {index < items.length - 1 && <Divider variant="inset" component="li" />}
               </Box>

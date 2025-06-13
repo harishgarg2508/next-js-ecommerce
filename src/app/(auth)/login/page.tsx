@@ -1,10 +1,12 @@
+import AuthButton from '@/components/AuthButton'
 import React from 'react'
 
-export default function Login() {
-
-
-    
+function LoginPage() {
   return (
-    <div>This is login page</div>
+    <div>
+      <AuthButton/>
+    </div>
   )
 }
+
+export default LoginPage

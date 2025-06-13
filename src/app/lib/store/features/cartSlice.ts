@@ -10,7 +10,6 @@ interface ProductType {
     category?: string;
 }
 
-
 export interface CartState {
   items: ProductType[]
 }
@@ -23,19 +22,23 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    add: (state,action) => {
-      state.items.push(action.payload) 
-      const existing =  state.items.find((item)=>(item.id === action.payload.id))
-      if(!existing){
-        state.items.push(action.payload)
+    add: (state, action: PayloadAction<ProductType>) => {
+      const existingItem = state.items.find(item => item.id === action.payload.id);
+      if(existingItem){
+        alert("Item already in cart")
+      } else{
+        state.items.push(action.payload);
       }
-      console.log(state.items)
+    },
+
+    remove: (state, action: PayloadAction<number>) => { 
+      state.items = state.items.filter(item => item.id !== action.payload);
     },
     
     }
 })
 
-export const { add } = cartSlice.actions
+export const { add,remove } = cartSlice.actions
 
 
 export default cartSlice.reducer

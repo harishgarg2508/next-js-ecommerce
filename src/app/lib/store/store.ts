@@ -1,30 +1,49 @@
-import { configureStore } from '@reduxjs/toolkit'
-// import { persistStore, persistReducer } from 'redux-persist'
-// import storage from './storage'
-import cartReducer from '@/app/lib/store/features/cartSlice'
+import { configureStore, combineReducers, Store } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import cartReducer, { CartState } from './features/cartSlice';
+import userReducer from './features/AuthSlice';
+
+const rootReducer = combineReducers({
+  cart: cartReducer,
+  user: userReducer,
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
   key: 'root',
-  // storage,
-  whitelist: ['cart'] 
-}
+  storage,
+  whitelist: ['cart', 'user'],
+};
 
-// const persistedReducer = persistReducer(persistConfig, cartReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const makeStore = () => {
-  return configureStore({
-    reducer: {
-      cart: cartReducer
-    },
-    // middleware: (getDefaultMiddleware) =>
-    //   getDefaultMiddleware({
-    //     serializableCheck: {
-    //       ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
-    //     }
-    //   })
-  })
-}
+  const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  });
 
-export type AppStore = ReturnType<typeof makeStore>
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+  const persistor = persistStore(store);
+  
+  return { store, persistor };
+};
+
+export type AppStore = ReturnType<typeof makeStore>['store'];
+export type AppDispatch = AppStore['dispatch'];
