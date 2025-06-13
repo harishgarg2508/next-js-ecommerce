@@ -10,7 +10,8 @@ import Badge from '@mui/material/Badge';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import AddToCart from './addToCart';
-
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 export default function Navbar() {
@@ -27,16 +28,9 @@ export default function Navbar() {
                         </ListItemAvatar>
                         <ListItemText primary="Guest" secondary="guest@gmail.com" />
                     </ListItem>
-                    <AddToCart/>
-                    {/* <IconButton
-                        size="large"
-                        aria-label="show 17 new notifications"
-                        color="inherit"
-                    >
-                        <Badge badgeContent={5} color="error">
-                            <AddShoppingCartIcon />
-                        </Badge>
-                    </IconButton> */}
+
+                   <Link href="/cart"><AddToCart/></Link> 
+               
                 </Toolbar>
             </AppBar>
 

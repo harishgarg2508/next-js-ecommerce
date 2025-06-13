@@ -11,7 +11,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { useAppDispatch } from '@/app/lib/hooks';
 import { add } from '@/app/lib/store/features/cartSlice';
 interface PropType{
-      id:string;
+    id:number;
     title:string;
     thumbnail:string;
     price:number;
@@ -23,9 +23,10 @@ export default function ProductCard(props: PropType) {
   const { id, title, thumbnail, price, category } = props;
   const dispatch = useAppDispatch();
 
-  const handleAddToCart = (productId:string)=>{
+  const handleAddToCart = (items:PropType)=>{
     console.log("adding to cart")
-    dispatch(add(productId))
+    console.log(items);
+    dispatch(add(items))
   }
 
 
@@ -62,7 +63,7 @@ export default function ProductCard(props: PropType) {
        
       </CardContent>
       <CardOverflow>
-        <Button variant="solid" color="danger" size="lg" onClick={()=>handleAddToCart(id)}>
+        <Button variant="solid" color="danger" size="lg" onClick={()=>handleAddToCart(props)}>
           Add to cart
         </Button>
       </CardOverflow>

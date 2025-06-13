@@ -5,9 +5,8 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useAppSelector } from "@/app/lib/hooks";
 
 function AddToCart() {
-    const items = useAppSelector((state)=>state.cart.items)
-    console.log(items)
-    console.log(items.length)
+    const items = useAppSelector((state)=>state.cart.items) 
+    console.log(items);
   return (
     <div>
       <IconButton
