@@ -1,28 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-interface PaginationType {
-  value?: number;
-  total?: number
+interface PageState {
+  page: number;
 }
+const initialState: PageState = {
+  page: 0,
+};
 
-
-const initialState: PaginationType={
-  value: 0,
-  total: 0
-}
-
-const paginationSlice = createSlice({
-  name: "user",
+const PaginationSlice = createSlice({
+  name: "page",
   initialState,
   reducers: {
-    setCurrent: (state, action: PayloadAction<number>) => {
-     state.value=action.payload;
-    },
-    setTotal: (state, action: PayloadAction<number>) => {
-      state.value = action.payload;
+    setPage: (state, action) => {
+      state.page = action.payload.number;
     },
   },
 });
 
-export const { setCurrent,setTotal } = paginationSlice.actions;
-export default paginationSlice.reducer;
+export const { setPage } = PaginationSlice.actions;
+export default PaginationSlice.reducer;

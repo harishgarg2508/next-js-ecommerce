@@ -1,8 +1,11 @@
+'use client'
 import ProductCard from "@/components/card";
 import Navbar from "@/components/Navbar";
 import PaginationControlled from "@/components/Pagination";
 import fetchproducts from "@/services/productapi";
 import { Box, Grid } from "@mui/material";
+import { useAppSelector } from "../lib/hooks";
+import { useEffect, useState } from "react";
 
 interface ProductType {
     id: number;
@@ -14,9 +17,20 @@ interface ProductType {
 }
 
 
-export default async function ProductPage() {
+export default  function ProductPage() {
 
-    const products: ProductType[] = await fetchproducts()
+  const currentPage = useAppSelector((state) => state.page.page);
+
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    fetchproducts(currentPage).then(({ products, total }) => {
+      setProducts(products);
+      setTotal(total);
+    });
+  }, [currentPage]);
+
 
     return (
         <div>
@@ -32,7 +46,7 @@ export default async function ProductPage() {
                 ))}
             </Grid>
             <Box>
-                <PaginationControlled />
+                <PaginationControlled total={total} />
             </Box>
 
         </div>
